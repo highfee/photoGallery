@@ -30,14 +30,27 @@ function Register() {
         if(password !== password2){
             toast.error('Password does not match')
         }
-        // const res = await axios.post('http://localhost:8000/api/users/register', formData)
-        const res = await axios.post('https://highfee-photo.herokuapp.com/api/users/register', formData)
-        if(res.data){
-            localStorage.setItem('user', JSON.stringify(res.data))
-            dispatch(update2(JSON.parse(localStorage.getItem('user'))))
-
-            navigate('/')
+        if(!email && !password && !password2 && !name){
+            toast.error('pls input all fields')
+          }
+        try {
+            // const res = await axios.post('https://highfee-photo.herokuapp.com/api/users/register', formData)
+            const res = await axios.post('http://localhost:8000/api/users/register', formData)
+            if(res.data){
+                localStorage.setItem('user', JSON.stringify(res.data))
+                dispatch(update2(JSON.parse(localStorage.getItem('user'))))
+    
+                navigate('/')
+            }
+        } catch (error) {
+            if(error.message === "Network Error"){
+            toast.error('Pls check your internet connection')
+            }
+            if(error.response.data.message && error.response.data.message === "Email already exist"){
+                toast.error('Email already exist')
+              }
         }
+       
     }
   
 

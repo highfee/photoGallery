@@ -3,6 +3,7 @@ import {useState} from 'react'
 import axios from 'axios'
 import {useDispatch} from 'react-redux'
 import {update2} from '../redux/authSlice'
+import { toast } from 'react-toastify'
 
 
 function Login() {
@@ -24,12 +25,24 @@ const { email, password} = formData
 
   const handleSubmit = async(e) => {
       e.preventDefault()
-      const res = await axios.post('https://highfee-photo.herokuapp.com/api/users/login', formData)
-      if(res.data){
-        localStorage.setItem('user', JSON.stringify(res.data))
-        dispatch(update2(JSON.parse(localStorage.getItem('user'))))
-        navigate('/')
-    }
+      if(!email && !password){
+        toast.error('pls input all fields')
+      }
+      try {
+        const res = await axios.post('https://highfee-photo.herokuapp.com/api/users/login', formData)
+        if(res.data){
+          localStorage.setItem('user', JSON.stringify(res.data))
+          dispatch(update2(JSON.parse(localStorage.getItem('user'))))
+          navigate('/')
+        }
+      } catch (error) {
+        if(error.message === "Network Error"){
+          toast.error('Pls check your internet connection')
+        }
+        if(error.response.data.message === "Invalid credentials"){
+          toast.error('Invalid credentials')
+        }
+      }
   }
 
   return (
@@ -51,7 +64,7 @@ const { email, password} = formData
                   value={password}
                   onChange={onChange}
                 />
-                <button type="submit">Login</button>
+                <button type="submit" style={{cursor: 'pointer'}}>Login</button>
             </form>
         </div>
     </>
