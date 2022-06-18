@@ -142,7 +142,13 @@ form ion-icon{
   .login  input{
     margin-bottom: 30px;
     padding:  6px;
+   
   }
+  .login  input:-webkit-autofill{
+    -webkit-box-shadow: 0 0 0 40px white inset !important;
+    /* box-shadow: none; */
+  }
+  
   .login form button{
     padding: 8px 12px;
     width: 200px;
@@ -150,6 +156,7 @@ form ion-icon{
     color: #ddd;
     font-size: 16px;
     border: none;
+    outline: none;
   }
 @media only screen and (min-width: 900px){
  .container{

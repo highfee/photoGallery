@@ -61,13 +61,14 @@ function Register() {
       <>
           <div className="login">
             <h1>Please Register to start using our service</h1>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} >
                 <input 
                     type="text" 
                     placeholder="Pls input username"
                     name="name"
                     value={name}
                     onChange={onChange}
+                    autoComplete='off'
                 />
                 <input 
                     type="email" 
