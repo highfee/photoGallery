@@ -24,7 +24,7 @@ const { email, password} = formData
 
   const handleSubmit = async(e) => {
       e.preventDefault()
-      const res = await axios.post('http://localhost:8000/api/users/login', formData)
+      const res = await axios.post('https://highfee-photo.herokuapp.com/api/users/login', formData)
       if(res.data){
         localStorage.setItem('user', JSON.stringify(res.data))
         dispatch(update2(JSON.parse(localStorage.getItem('user'))))
