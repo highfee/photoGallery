@@ -22,7 +22,7 @@ const registerUser = async(req, res) => {
     const userExist = await User.findOne({email})
     if(userExist){
         res.status(400)
-        res.json({message: 'Email already exist'})
+        return res.json({message: 'Email already exist'})
     }
 
     // register user
@@ -41,7 +41,7 @@ const registerUser = async(req, res) => {
         })
     }else{
         res.status(400)
-        res.json({message: 'User not created'})
+        return res.json({message: 'User not created'})
     }
 }
 
@@ -60,7 +60,7 @@ const loginUser = async(req, res) => {
             email,
         })
     }else{
-        res.status(400).json({message: 'Invalid credentials'})
+        return res.status(400).json({message: 'Invalid credentials'})
     }
 }
 

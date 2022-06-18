@@ -34,8 +34,9 @@ function Register() {
             toast.error('pls input all fields')
           }
         try {
-            const res = await axios.post('https://highfee-photo.heroksuapp.com/api/users/register', formData)
-            // const res = await axios.post('http://localhost:8000/api/users/register', formData)
+            // const res = await axios.post('https://highfee-photo.heroksuapp.com/api/users/register', formData)
+            const res = await axios.post('http://localhost:8000/api/users/register', formData)
+    
             if(res.data){
                 localStorage.setItem('user', JSON.stringify(res.data))
                 dispatch(update2(JSON.parse(localStorage.getItem('user'))))
@@ -43,6 +44,7 @@ function Register() {
                 navigate('/')
             }
         } catch (error) {
+            console.log(error);
             if(error.message === "Network Error"){
             toast.error('Pls check your internet connection')
             }
